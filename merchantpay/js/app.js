@@ -2,9 +2,9 @@
 	var app = angular.module('webapp', []);
 
 	app.controller('main_ctrl', function ($scope, $log) {
-		$scope.appId = 'l07SyfxTmlRCKhAyrKySRzNrrYjPPmn5qlrmC3Z55mQ=';
-		$scope.secretKey = 'SLu16rrKqBU4XgEZ1NGZoL6mbeozgFivHC93aAUVe5Y=';
-		$scope.secureKey = 'mHHS7qktjvUEB28PI1YVkZWBc19yCn6Kuj6C5CUFTWA=';
+		$scope.appId = 'OPWSTJR7VtBavtHbvnAcDC1oSHFrhjVBz-ivlxJBlbg=';
+		$scope.secretKey = 'uMVvkwUpJUcs6GmJNZeKLGTmwdmatgVVlEZ9hRbES5M=';
+		$scope.secureKey = 'jwF6itjToE3UiRYti2hvaDzerWkB2bXuc0ku5ZxfxHY=';
 		$scope.transactionId = '1';
 		$scope.currency = "EUR";
 		$scope.amount = "12.0";
