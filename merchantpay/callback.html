@@ -1,0 +1,36 @@
+<html ng-app="cbapp">
+	<head>
+		<title>Mock Callback URL</title>
+		<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css" type="text/css">
+	</head>
+	<body ng-controller="callback_ctrl">
+		<div class="container">
+			<h1>Payment Success</h1>
+
+			<table class="table">
+				<tr>
+					<th>transaction-id<th>
+					<td>{{transactionId}}</td>
+				</tr>
+				<tr>
+					<th>status<th>
+					<td>{{status}}</td>
+				</tr>
+				<tr>
+					<th>2pay-order-id<th>
+					<td>{{orderId}}</td>
+				</tr>
+				<tr>
+					<th>validation-hash<th>
+					<td>{{validationHash}}</td>
+				</tr>
+
+			</table>
+		</div>
+
+
+
+		<script src="//ajax.googleapis.com/ajax/libs/angularjs/1.3.14/angular.min.js"></script>
+		<script src="js/callback.js"></script>
+	</body>
+</html>
