@@ -2,14 +2,13 @@
 	var app = angular.module('webapp', []);
 
 	app.controller('main_ctrl', function ($scope, $log) {
-		$scope.appId = 'OPWSTJR7VtBavtHbvnAcDC1oSHFrhjVBz-ivlxJBlbg=';
-		$scope.secretKey = 'uMVvkwUpJUcs6GmJNZeKLGTmwdmatgVVlEZ9hRbES5M=';
-		$scope.secureKey = 'jwF6itjToE3UiRYti2hvaDzerWkB2bXuc0ku5ZxfxHY=';
+		$scope.appId = 'MMCscpxEBWd67MOridPR6gWFZS0XPu4Osuu5JFWno-I=';
+		$scope.secretKey = 'y-sXg4IPihGq0-_qFz5tnHhpDRfGK-e9OpzeMBCLWkw=';
+		$scope.secureKey = 'zOV9IGPnFvMlNqwEYJb3oGjPcBqoVKFP9D904vVhLxs=';
 		$scope.transactionId = '1';
 		$scope.currency = "EUR";
 		$scope.amount = "12.0";
 		// $scope.validationHash = '2mU0SP002683fVIUGOXa0Imot2w=';
-
 
 		function b64urlEncode(inBytes) {
 			var b64 = forge.util.encode64(inBytes),
