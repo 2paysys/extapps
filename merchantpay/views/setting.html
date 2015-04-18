@@ -1,0 +1,106 @@
+
+<div class="row">
+    <form name="myform" action="https://appdev.2pay.it/payapi/payment-request" method="POST" class="form-horizontal">
+
+        <div class="form-group">
+            <label class="control-label col-sm-2">inst</label>
+            <div class="col-sm-10">
+                <input
+                       type="text" class="form-control" name="app-id"
+                       ng-model="data.sessionId">
+            </div>
+        </div>
+        
+        <div class="form-group">
+            <label class="control-label col-sm-2">app-id</label>
+            <div class="col-sm-10">
+                <input
+                       type="text" class="form-control" name="app-id"
+                       ng-model="data.appId">
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="control-label col-sm-2">secret-key</label>
+            <div class="col-sm-10">
+                <input
+                       type="text" class="form-control" name="secret-key"
+                       ng-model="data.secretKey">
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="control-label col-sm-2">session-id</label>
+            <div class="col-sm-10">
+                <input type="text" class="form-control" id="2pay-session-id" name="2pay-session-id"
+                       ng-model="data.sessionId" watch-change>
+            </div>
+        </div>
+
+       	<!-- Transaction -->
+        <div class="form-group">
+            <label class="control-label col-sm-2">transaction</label>
+            <div class="col-sm-2">
+                <input type="text" class="form-control" name="transaction-id"
+                       ng-model="data.transactionId" placeholder="ID">
+            </div>
+            <div class="col-sm-7">
+                <input type="text" class="form-control" name="transaction-desc"
+                       ng-model="data.transactionDesc" placeholder="Description">
+            </div>
+        </div>
+
+        <!-- Amount -->
+        <div class="form-group">
+            <label class="control-label col-sm-2">amount</label>
+            <div class="col-sm-2">
+                <input type="text" class="form-control" name="currency" readonly="true"
+                       ng-model="data.currency" placeholder="Currency">
+            </div>
+            <div class="col-sm-7">
+                <input type="number" class="form-control text-right" name="amount"
+                       ng-model="data.amount" placeholder="Amount">
+            </div>
+        </div>
+
+		<!-- Hash -->
+        <div class="form-group">
+            <label class="control-label col-sm-2">validate-hash</label>
+            <div class="col-sm-5">
+                <input type="text" class="form-control" name="validate-hash"
+                       ng-model="data.validationHash" readonly="true">
+            </div>
+            <div class="col-sm-5">
+                <span class="form-control readonly"><strong>inner</strong>: {{data.innerHash}}</span>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="control-label col-sm-2">cart-content</label>
+            <div class="col-sm-8">
+                <textarea rows="4" class="form-control" name="data.cart-content">
+                    [{"id": "12324","desc": "Happy Birthday Card",
+                    "quantity": 3,"price": 4.0,"amount": 12.0},
+                    {"id": "12325","desc": "Envelop",
+                    "quantity": 3,"price": 0.1,"amount": 0.3}]
+                </textarea>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-sm-offset-1 col-sm-3 text-center">
+                <button type="submit" class="btn btn-primary">Pay with 2Pay</button>
+            </div>
+            <div class="col-sm-3 text-center">
+                <button type="button" class="btn btn-warning" ng-click="save()">Save</button>
+            </div>
+            <div class="col-sm-3 text-center">
+                <button type="button" class="btn btn-success" ng-click="read()">Read</button>
+            </div>
+            <div class="col-sm-2 text-center">
+                <button type="button" class="btn btn-info" ng-click="loadScript()">LoadScript</button>
+            </div>
+        </div>
+        
+    </form>
+</div>
