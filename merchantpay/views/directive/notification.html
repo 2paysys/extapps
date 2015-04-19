@@ -1,0 +1,17 @@
+<div id="notification-area" ng-show="fs">
+    <div class="alert alert-dismissible" ng-class="fs.className" role="alert">
+        <button type="button" class="close" ng-click="close()" ng-show="fs.showDismiss">
+            <span aria-hidden="true">&times;</span>
+        </button>
+
+        <span class="glyphicon" ng-class="fs.iconName" ng-show="fs.iconName"></span>
+        <span class="sr-only">Error:</span>
+        <strong>{{fs.message}}</strong>
+
+        <span class="spinner" ng-show="fs.showSpinner">
+            <div class="bounce1"></div>
+            <div class="bounce2"></div>
+            <div class="bounce3"></div>
+        </span>
+    </div>
+</div>
