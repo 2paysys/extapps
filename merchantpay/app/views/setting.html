@@ -1,6 +1,6 @@
 
 <div class="row">
-    <form name="myform" action="https://appdev.2pay.it/payapi/payment-request" method="POST" class="form-horizontal">
+    <form name="settingForm" action="{{formAction}}" method="POST" class="form-horizontal" ng-submit="onSubmit()">
 
        	<div class="panel panel-default">
             <div class="form-group">
@@ -85,19 +85,49 @@
         </div>
 
         <div class="form-group">
-            <label class="control-label col-sm-2">cart-content</label>
-            <div class="col-sm-8">
-                <textarea rows="4" class="form-control" name="cart-content">
-                    [{"id": "12324","desc": "Happy Birthday Card",
-                    "quantity": 3,"price": 4.0,"amount": 12.0},
-                    {"id": "12325","desc": "Envelop",
-                    "quantity": 3,"price": 0.1,"amount": 0.3}]
-                </textarea>
+            <label class="control-label col-sm-2">
+                cart-content
+                <i class="glyphicon glyphicon-plus-sign" ng-click="addCartItem()"></i>
+                
+           	</label>
+            <div class="col-sm-10">
+                <table class="table table-condensed table-small">
+                    <tr>
+                        <th>id</th>
+                        <th>desc</th>
+                        <th>quantity</th>
+                        <th>price</th>
+                        <th>amount</th>
+                        <th></th>
+                    </tr>
+                    <tr ng-repeat="row in data.cartContent track by $index">
+                        <td>
+                            <input type="text" ng-model="data.cartContent[$index].id">
+                        </td>
+                        <td>
+                            <input type="text" ng-model="data.cartContent[$index].desc">
+                        </td>
+                        <td>
+                            <input type="number" class="text-right" ng-model="data.cartContent[$index].quantity">
+                        </td>
+                        <td>
+                            <input type="number" class="text-right" step="0.01" ng-model="data.cartContent[$index].price">
+                        </td>
+                        <td>
+                            <input type="number" class="text-right" step="0.01" ng-model="data.cartContent[$index].amount">
+                        </td>
+                        <td>
+                            <i class="glyphicon glyphicon-minus-sign" ng-click="delCartItem($index)" ng-show="$index > 0"></i>
+                        </td>
+                    </tr>
+                </table>
             </div>
         </div>
-
+        
+        <input type="hidden" ng-value="cartContentJSON" name="cart-content">
+        
         <div class="form-group">
-            <div class="col-sm-offset-2 col-sm-3 text-center">
+            <div class="col-sm-offset-9 col-sm-3 text-right">
                 <button type="submit" class="btn btn-primary">Pay with 2Pay</button>
             </div>
         </div>

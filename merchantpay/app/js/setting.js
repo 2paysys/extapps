@@ -151,9 +151,16 @@ define(['angularAMD', 'forge', 'notificationAAMD'], function (angularAMD, forge)
             privScope.data = {
             	'transactionId': getTransactionId(),
                 'currency': 'EUR',
-                'amount': 1,
+                'amount': "1.5",
                 'appName': 'Mock Merchant',
-                'inst': 'dev'
+                'inst': 'dev',
+                'cartContent': [{
+                	'id': 12345,
+                    'desc': 'Candy',
+                    'quantity': 1,
+                    'price': 1.5,
+                    'amount': 1.5
+                }]
             };
            	
             // Read stored data

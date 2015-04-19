@@ -1,5 +1,5 @@
 define(['angularAMD', 'setting', 'notificationAAMD'], function (angularAMD) {
-    angularAMD.controller('main_ctrl', ['$scope', 'Setting', 'Notification', '$log', function ($scope, Setting, Notification, $log) {
+    angularAMD.controller('main_ctrl', ['$scope', 'Setting', 'Notification', '$sce','$log', function ($scope, Setting, Notification, $sce, $log) {
         // Handle sessionId change event from watchChange directive
         $scope.$on('watchChangeEvent', function (event, value) {
             $log.log('watchChangeEvent value: ', value);
@@ -35,5 +35,21 @@ define(['angularAMD', 'setting', 'notificationAAMD'], function (angularAMD) {
         $scope.$watchGroup(['data.transactionId','data.amount'], function () {
 			Setting.calcValidationHash();
 		});
+        
+        // Cart Management
+        $scope.addCartItem = function () {
+        	$scope.data.cartContent.push({});
+        }
+        $scope.delCartItem = function (index) {
+        	$scope.data.cartContent.splice(index, 1);
+        }
+        
+        // On Submit
+        $scope.onSubmit = function () {
+        	$scope.formAction = $sce.trustAsResourceUrl(Setting.getPostUrl());
+            $scope.cartContentJSON = JSON.stringify($scope.data.cartContent);
+        };
+        
+        // $scope.formAction = $sce.trustAsResourceUrl(Setting.getPostUrl());
     }]);
 });
