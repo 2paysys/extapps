@@ -17,4 +17,11 @@ body > .container {
     font-size: 13px;
 }
 
+div.panel {
+	padding-top: 20px;
+    padding-right: 20px;
+}
 
+table.table-small {
+	font-size: 10px;
+}

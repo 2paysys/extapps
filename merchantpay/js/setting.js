@@ -1,5 +1,5 @@
 define(['angularAMD', 'forge', 'notificationAAMD'], function (angularAMD, forge) {
-	angularAMD.service('setting', ['Notification', '$log', function (Notification, $log) {
+	angularAMD.service('Setting', ['Notification', '$log', function (Notification, $log) {
         var	self = this,
             EPOCH = new Date('2015-04-14'),
             STORE = window.localStorage,
@@ -7,17 +7,9 @@ define(['angularAMD', 'forge', 'notificationAAMD'], function (angularAMD, forge)
             privScope = {}
        	;
         
-        // Function to generate unique orderId
-        function getTransactionId() {
-        	var now = new Date(),
-                dpart = Math.round((now - EPOCH)/(1000*60*60*24)),
-                hpart = now.getHours(),
-                spart = now.getMinutes() * now.getSeconds()
-           	;
-            
-            return dpart + '-' + hpart + '-' + padString('0000', spart.toString());
-        }
-        
+        /*
+        PRIVATE: Generate transaction id
+        */
         function padString(template, input) {
             var inLen = input.length,
                 tmpLen = template.length,
@@ -32,6 +24,20 @@ define(['angularAMD', 'forge', 'notificationAAMD'], function (angularAMD, forge)
             }
         }
         
+        function getTransactionId() {
+        	var now = new Date(),
+                dpart = Math.round((now - EPOCH)/(1000*60*60*24)),
+                hpart = now.getHours(),
+                spart = now.getMinutes() * now.getSeconds()
+           	;
+            
+            return dpart + '-' + hpart + '-' + padString('0000', spart.toString());
+        }
+        
+
+        /*
+        PRIVATE: base64 url
+        */
         function b64urlEncode(inBytes) {
 			var b64 = forge.util.encode64(inBytes),
                 s1 = b64.replace(/\+/g, '-'),
@@ -39,7 +45,10 @@ define(['angularAMD', 'forge', 'notificationAAMD'], function (angularAMD, forge)
             return s2;
 		}
 
-		function calcValidationHash() {
+        /*
+        Calculate the validation hahs
+        */
+		this.calcValidationHash = function () {
 			var data = privScope.data;
             
             if (data.transactionId && data.currency && data.amount && data.secretKey) {
@@ -64,10 +73,9 @@ define(['angularAMD', 'forge', 'notificationAAMD'], function (angularAMD, forge)
             }
 		}
 
-        this.calcHash = function () {
-        	calcValidationHash();
-        };
-        
+        /*
+        Save and read from localStorage
+        */
         this.save = function () {
             if (STORE) {
                 var data = privScope.data;
@@ -106,6 +114,9 @@ define(['angularAMD', 'forge', 'notificationAAMD'], function (angularAMD, forge)
             }
         };
         
+        /*
+        Force load the script
+        */
         this.loadScript = function (appId) {
             if (appId) {
                 var jsUrl = self.getJsUrl(),
@@ -130,6 +141,9 @@ define(['angularAMD', 'forge', 'notificationAAMD'], function (angularAMD, forge)
             }
         };
 
+        /*
+        Initialization
+        */
         this.initialize = function (scope) {
         	privScope = scope;
             
@@ -137,9 +151,16 @@ define(['angularAMD', 'forge', 'notificationAAMD'], function (angularAMD, forge)
             privScope.data = {
             	'transactionId': getTransactionId(),
                 'currency': 'EUR',
-                'amount': 1,
+                'amount': "1.5",
                 'appName': 'Mock Merchant',
-                'inst': 'dev'
+                'inst': 'dev',
+                'cartContent': [{
+                	'id': 12345,
+                    'desc': 'Candy',
+                    'quantity': 1,
+                    'price': 1.5,
+                    'amount': 1.5
+                }]
             };
            	
             // Read stored data
@@ -163,6 +184,10 @@ define(['angularAMD', 'forge', 'notificationAAMD'], function (angularAMD, forge)
                     'jsUrl': 'https://app.2pay.it/payapi/js/core?key='
                 }
             };
+            
+            // Bind read and save methods
+            privScope.save = self.save;
+            privScope.read = self.read;
             
             $log.log('Setting initialized');
         }
