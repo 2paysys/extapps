@@ -1,3 +1,5 @@
+@import "directive/notification.css";
+
 body > .container {
 	padding-top: 60px;
 }
@@ -14,3 +16,5 @@ body > .container {
     text-overflow: ellipsis;
     font-size: 13px;
 }
+
+

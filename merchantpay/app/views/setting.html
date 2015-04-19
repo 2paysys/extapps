@@ -3,11 +3,12 @@
     <form name="myform" action="https://appdev.2pay.it/payapi/payment-request" method="POST" class="form-horizontal">
 
         <div class="form-group">
-            <label class="control-label col-sm-2">inst</label>
-            <div class="col-sm-10">
-                <input
-                       type="text" class="form-control" name="app-id"
-                       ng-model="data.sessionId">
+            <label class="control-label col-sm-2">info</label>
+            <div class="col-sm-5">
+                <input type="text" class="form-control" ng-model="data.appName" placeholder="App Name">
+            </div>
+            <div class="col-sm-5">
+                <input type="text" class="form-control" ng-model="data.accountNumber" placeholder="Account Number">
             </div>
         </div>
         
@@ -29,18 +30,22 @@
             </div>
         </div>
 
+       	<!-- Session ID -->
         <div class="form-group">
             <label class="control-label col-sm-2">session-id</label>
-            <div class="col-sm-10">
+            <div class="col-sm-8">
                 <input type="text" class="form-control" id="2pay-session-id" name="2pay-session-id"
-                       ng-model="data.sessionId" watch-change>
+                       ng-model="data.sessionId" readonly="true" watch-change>
+            </div>
+            <div class="col-sm-2 text-right">
+                <button type="button" class="btn btn-warning" ng-click="loadScript()">Reload</button>
             </div>
         </div>
 
        	<!-- Transaction -->
         <div class="form-group">
             <label class="control-label col-sm-2">transaction</label>
-            <div class="col-sm-2">
+            <div class="col-sm-3">
                 <input type="text" class="form-control" name="transaction-id"
                        ng-model="data.transactionId" placeholder="ID">
             </div>
@@ -53,7 +58,7 @@
         <!-- Amount -->
         <div class="form-group">
             <label class="control-label col-sm-2">amount</label>
-            <div class="col-sm-2">
+            <div class="col-sm-3">
                 <input type="text" class="form-control" name="currency" readonly="true"
                        ng-model="data.currency" placeholder="Currency">
             </div>
@@ -78,7 +83,7 @@
         <div class="form-group">
             <label class="control-label col-sm-2">cart-content</label>
             <div class="col-sm-8">
-                <textarea rows="4" class="form-control" name="data.cart-content">
+                <textarea rows="4" class="form-control" name="cart-content">
                     [{"id": "12324","desc": "Happy Birthday Card",
                     "quantity": 3,"price": 4.0,"amount": 12.0},
                     {"id": "12325","desc": "Envelop",
@@ -96,9 +101,6 @@
             </div>
             <div class="col-sm-3 text-center">
                 <button type="button" class="btn btn-success" ng-click="read()">Read</button>
-            </div>
-            <div class="col-sm-2 text-center">
-                <button type="button" class="btn btn-info" ng-click="loadScript()">LoadScript</button>
             </div>
         </div>
         
