@@ -1,17 +1,8 @@
-!function () {
-	var app = angular.module('cbapp', []);
+define(['angularAMD', 'callback_ctrl'], function (angularAMD) {
+    
+	var app = angular.module('webapp', []);
 
-	app.controller('callback_ctrl', function ($scope, $location, $log) {
-		
-		var data = $location.search();
-		$log.log('location: ', data);
+    return angularAMD.bootstrap(app);
 
-		$scope.transactionId = data['transaction-id'];
-		$scope.status = data.status;
-		$scope.orderId = data['2pay-order-id'];
-		$scope.validationHash = data['validation-hash'];
+});
 
-	});
-
-
-}();
