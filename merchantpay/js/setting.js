@@ -1,11 +1,11 @@
 define(['angularAMD', 'forge', 'notificationAAMD'], function (angularAMD, forge) {
-	angularAMD.service('Setting', ['Notification', '$log', function (Notification, $log) {
-        var	self = this,
+    angularAMD.service('Setting', ['Notification', '$log', function (Notification, $log) {
+        var self = this,
             EPOCH = new Date('2015-04-14'),
             STORE = window.localStorage,
             privStoreFields = ['appId', 'secretKey', 'inst', 'appName', 'accountNumber'],
             privScope = {}
-       	;
+        ;
         
         /*
         PRIVATE: Generate transaction id
@@ -25,11 +25,11 @@ define(['angularAMD', 'forge', 'notificationAAMD'], function (angularAMD, forge)
         }
         
         function getTransactionId() {
-        	var now = new Date(),
+            var now = new Date(),
                 dpart = Math.round((now - EPOCH)/(1000*60*60*24)),
                 hpart = now.getHours(),
                 spart = now.getMinutes() * now.getSeconds()
-           	;
+            ;
             
             return dpart + '-' + hpart + '-' + padString('0000', spart.toString());
         }
@@ -39,21 +39,21 @@ define(['angularAMD', 'forge', 'notificationAAMD'], function (angularAMD, forge)
         PRIVATE: base64 url
         */
         function b64urlEncode(inBytes) {
-			var b64 = forge.util.encode64(inBytes),
+            var b64 = forge.util.encode64(inBytes),
                 s1 = b64.replace(/\+/g, '-'),
                 s2 = s1.replace(/\//g, '_');
             return s2;
-		}
+        }
 
         /*
-        Calculate the validation hahs
+        Calculate the validation hash
         */
-		this.calcValidationHash = function () {
-			var data = privScope.data;
+        this.calcValidationHash = function () {
+            var data = privScope.data;
             
             if (data.transactionId && data.currency && data.amount && data.secretKey) {
                 var innerHash = forge.md.sha1.create(),
-					validationHash = forge.md.sha1.create();
+                    validationHash = forge.md.sha1.create();
                 
                 innerHash.update(data.transactionId);
                 innerHash.update(data.currency);
@@ -68,10 +68,23 @@ define(['angularAMD', 'forge', 'notificationAAMD'], function (angularAMD, forge)
 
                 var validationHashB64 = b64urlEncode(validationHash.digest().bytes());
 
-				data.innerHash = innerHashB64;
+                data.innerHash = innerHashB64;
                 data.validationHash = validationHashB64;
             }
-		}
+        };
+
+        /*
+        Generic Method to Calculate Hash
+         */
+        this.calcHash = function () {
+            var hash = forge.md.sha1.create();
+            angular.forEach(arguments, function (arg) {
+                if (arg) {
+                    hash.update(arg);
+                }
+            });
+            return b64urlEncode(hash.digest().bytes());
+        };
 
         /*
         Save and read from localStorage
@@ -86,28 +99,28 @@ define(['angularAMD', 'forge', 'notificationAAMD'], function (angularAMD, forge)
                     if (saveData) {
                         STORE.setItem(field, saveData);
                     } else {
-                    	STORE.removeItem(field);
+                        STORE.removeItem(field);
                     }
-                	
+                    
                 });
                 Notification.showMessage('Data saved.');
             }
         };
         
         this.read = function () {  
-          	if (STORE) {
+            if (STORE) {
                 var data = privScope.data,
                     toReadData = true;
                 angular.forEach(privStoreFields, function (field) {
-                	var readData = STORE.getItem(field);
+                    var readData = STORE.getItem(field);
                     // $log.log('readData for "' + field + '": ', readData);
                     // If appId is not return, assume that no data is saved
                     if (field === 'appId' && !readData) {
-                    	toReadData = false;
+                        toReadData = false;
                     }
                     // Only read the data if flag is set
                     if (toReadData) {
-                    	data[field] = readData
+                        data[field] = readData;
                     }
                 });
                 Notification.showMessage('Data loaded.');
@@ -122,16 +135,16 @@ define(['angularAMD', 'forge', 'notificationAAMD'], function (angularAMD, forge)
                 var jsUrl = self.getJsUrl(),
                     scriptId = '2pay-script',
                     script = document.getElementById(scriptId);
-               	
+                
                 $log.log('script element:', script);
                 if (script) {
-                	script = document.createElement('script');
+                    script = document.createElement('script');
                     script.id = "2pay-script";
                     document.body.appendChild(script);
                 }
                 
                 script.onload = function () {
-                	$log.log('2pay-script loadig...');
+                    $log.log('2pay-script loadig...');
                 }
                 
                 // sessionIdField.textContent('loading...');
@@ -145,41 +158,44 @@ define(['angularAMD', 'forge', 'notificationAAMD'], function (angularAMD, forge)
         Initialization
         */
         this.initialize = function (scope) {
-        	privScope = scope;
+            privScope = scope;
             
             // Set default data
             privScope.data = {
-            	'transactionId': getTransactionId(),
+                'transactionId': getTransactionId(),
                 'currency': 'EUR',
                 'amount': "1.5",
                 'appName': 'Mock Merchant',
                 'inst': 'dev',
                 'cartContent': [{
-                	'id': 12345,
+                    'id': 12345,
                     'desc': 'Candy',
                     'quantity': 1,
                     'price': 1.5,
                     'amount': 1.5
                 }]
             };
-           	
+            
             // Read stored data
             self.read();
             
             // Set installation options
             privScope.insts = {
-            	'dev': {
-                	'desc': 'Dev',
+                'dev': {
+                    'desc': 'Dev',
+                    'hostAddress': 'https://appdev.2pay.it',
                     'postUrl': 'https://appdev.2pay.it/payapi/payment-request',
                     'jsUrl': 'https://appdev.2pay.it/payapi/js/core?key='
                 },
                 'qa': {
-                	'desc': 'Sandbox',
+                    'desc': 'Sandbox',
+                    'hostAddress': 'https://appqas.2pay.it',
                     'postUrl': 'https://appqas.2pay.it/payapi/payment-request',
                     'jsUrl': 'https://appqas.2pay.it/payapi/js/core?key='
                 },
                 'prod': {
-                	'desc': 'Live',
+                    'desc': 'Live',
+                    'hostAddress': 'https://app.2pay.it',
                     'postUrl': 'https://app.2pay.it/payapi/payment-request',
                     'jsUrl': 'https://app.2pay.it/payapi/js/core?key='
                 }
@@ -190,13 +206,13 @@ define(['angularAMD', 'forge', 'notificationAAMD'], function (angularAMD, forge)
             privScope.read = self.read;
             
             $log.log('Setting initialized');
-        }
+        };
         
         this.getPostUrl = function () {
             if (privScope.insts && privScope.data.inst) {
                 var data = privScope.insts[privScope.data.inst];
                 if (data) {
-                	return data.postUrl;
+                    return data.postUrl;
                 }
             }
         }
@@ -205,7 +221,7 @@ define(['angularAMD', 'forge', 'notificationAAMD'], function (angularAMD, forge)
             if (privScope.insts && privScope.data.inst) {
                 var data = privScope.insts[privScope.data.inst];
                 if (data) {
-                	return data.jsUrl + privScope.data.appId;
+                    return data.jsUrl + privScope.data.appId;
                 }
             }
         };
