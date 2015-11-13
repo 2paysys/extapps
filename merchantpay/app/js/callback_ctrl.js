@@ -36,7 +36,7 @@ define(['angularAMD', 'setting'], function (angularAMD) {
             if ($scope.confirmHash) {
                 $scope.confirmHashValid = (confirmHash.substring(0, $scope.confirmHash.length) === $scope.confirmHash);
             }
-            if ($scope.validationHashValid) {
+            if ($scope.validationHash) {
                 $scope.validationHashValid = (validationHash.substring(0, $scope.validationHash.length) === $scope.validationHash);
             }
 
