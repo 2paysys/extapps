@@ -3,6 +3,15 @@ define(['angularAMD', 'setting', 'notificationAAMD'], function (angularAMD) {
         // Handle sessionId change event from watchChange directive
         $scope.$on('watchChangeEvent', function (event, value) {
             $log.log('watchChangeEvent value: ', value);
+            if (value) {
+                if (value==='APPID-FAILED-VALIDATION') {
+                    $scope.data.payButtonDisabled = true;
+                } else {
+                    $scope.data.payButtonDisabled = false;
+                }
+            } else {
+                $scope.data.payButtonDisabled = true;
+            }
             Setting.setSessionId(value);
         });
         

@@ -177,7 +177,8 @@ define(['angularAMD', 'forge', 'notificationAAMD'], function (angularAMD, forge)
                     'quantity': 1,
                     'price': 1.7,
                     'amount': 1.7
-                }]
+                }],
+                'payButtonDisabled': true
             };
             
             // DO NOT READ the stored data

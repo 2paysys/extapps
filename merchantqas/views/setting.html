@@ -16,7 +16,7 @@
 
         <div class="form-group">
             <div class="col-sm-offset-9 col-sm-3 text-right">
-                <button type="submit" class="btn btn-primary">Pay with 2Pay</button>
+                <button type="submit" class="btn btn-primary" ng-disabled="data.payButtonDisabled">Pay with 2Pay</button>
             </div>
         </div>
 
@@ -24,7 +24,7 @@
             <!-- hidden fields -->
             <input type="hidden" class="form-control" name="app-id" ng-model="data.appId">
             <input type="hidden" class="form-control" name="secret-key" ng-model="data.secretKey">
-            
+
            	<!-- Session ID -->
             <div class="form-group">
                 <label class="control-label col-sm-2">session-id</label>
