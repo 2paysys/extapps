@@ -135,18 +135,18 @@ define(['angularAMD', 'forge', 'notificationAAMD'], function (angularAMD, forge)
                 var jsUrl = self.getJsUrl(),
                     scriptId = '2pay-script',
                     script = document.getElementById(scriptId);
-                
+
                 $log.log('script element:', script);
                 if (script) {
                     script = document.createElement('script');
                     script.id = "2pay-script";
                     document.body.appendChild(script);
                 }
-                
+
                 script.onload = function () {
                     $log.log('2pay-script loadig...');
-                }
-                
+                };
+
                 // sessionIdField.textContent('loading...');
                 script.src = jsUrl + data.appId;
 
@@ -167,6 +167,7 @@ define(['angularAMD', 'forge', 'notificationAAMD'], function (angularAMD, forge)
                 'accountNumber': '000999910101',
                 'appId': 'E3jjG2FC4AGjSX6G4tHUD0MtGhhAnMtvbt-3l-9a9UM=',
                 'secretKey': 'GOVWGcPPvO0rvGqShJRkY2he9q2jBOhX_At7FOsErkU=',
+                'transactionDesc': 'Test purchase for QAS',
                 'transactionId': getTransactionId(),
                 'currency': 'EUR',
                 'amount': "1.7",
@@ -179,8 +180,8 @@ define(['angularAMD', 'forge', 'notificationAAMD'], function (angularAMD, forge)
                 }]
             };
             
-            // Read stored data
-            self.read();
+            // DO NOT READ the stored data
+            // self.read();
             
             // Set installation options
             privScope.insts = {

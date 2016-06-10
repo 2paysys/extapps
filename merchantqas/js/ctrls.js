@@ -1,14 +1,5 @@
 define(['angularAMD', 'setting', 'notificationAAMD'], function (angularAMD) {
     angularAMD.controller('main_ctrl', ['$scope', 'Setting', 'Notification', '$sce','$log', function ($scope, Setting, Notification, $sce, $log) {
-        // Initialize data
-        $scope.data = {
-            'inst': 'qa',
-            'appName': '2Pay QAS Merchant',
-            'accountNumber': '000999910101',
-            'appId': 'E3jjG2FC4AGjSX6G4tHUD0MtGhhAnMtvbt-3l-9a9UM=',
-            'secretKey': 'GOVWGcPPvO0rvGqShJRkY2he9q2jBOhX_At7FOsErkU='
-        };
-
         // Handle sessionId change event from watchChange directive
         $scope.$on('watchChangeEvent', function (event, value) {
             $log.log('watchChangeEvent value: ', value);
@@ -48,10 +39,10 @@ define(['angularAMD', 'setting', 'notificationAAMD'], function (angularAMD) {
         // Cart Management
         $scope.addCartItem = function () {
         	$scope.data.cartContent.push({});
-        }
+        };
         $scope.delCartItem = function (index) {
         	$scope.data.cartContent.splice(index, 1);
-        }
+        };
         
         // On Submit
         $scope.onSubmit = function () {
