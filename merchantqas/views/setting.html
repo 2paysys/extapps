@@ -1,0 +1,116 @@
+
+<div class="row">
+    <form name="settingForm" action="{{formAction}}" method="POST" class="form-horizontal" ng-submit="onSubmit()">
+
+       	<div class="panel panel-default">
+            <div class="form-group">
+                <label class="control-label col-sm-2">info</label>
+                <div class="col-sm-5">
+                    <span class="form-control readonly">{{data.appName}}</span>
+                </div>
+                <div class="col-sm-5">
+                    <span class="form-control readonly">{{data.accountNumber}}</span>
+                </div>
+            </div>
+        </div>
+
+       	<!-- Session ID -->
+        <div class="form-group">
+            <label class="control-label col-sm-2">session-id</label>
+            <div class="col-sm-8">
+                <input type="text" class="form-control" id="2pay-session-id" name="2pay-session-id"
+                       ng-model="data.sessionId" readonly="true" watch-change>
+            </div>
+            <div class="col-sm-2 text-right">
+                <button type="button" class="btn btn-warning" ng-click="loadScript()">Reload</button>
+            </div>
+        </div>
+
+       	<!-- Transaction -->
+        <div class="form-group">
+            <label class="control-label col-sm-2">transaction</label>
+            <div class="col-sm-3">
+                <input type="text" class="form-control" name="transaction-id"
+                       ng-model="data.transactionId" placeholder="ID">
+            </div>
+            <div class="col-sm-7">
+                <input type="text" class="form-control" name="transaction-desc"
+                       ng-model="data.transactionDesc" placeholder="Description">
+            </div>
+        </div>
+
+        <!-- Amount -->
+        <div class="form-group">
+            <label class="control-label col-sm-2">amount</label>
+            <div class="col-sm-3">
+                <input type="text" class="form-control" name="currency" readonly="true"
+                       ng-model="data.currency" placeholder="Currency">
+            </div>
+            <div class="col-sm-7">
+                <input type="text" class="form-control text-right" name="amount"
+                       ng-model="data.amount" placeholder="Amount">
+            </div>
+        </div>
+
+		<!-- Hash -->
+        <div class="form-group">
+            <label class="control-label col-sm-2">validate-hash</label>
+            <div class="col-sm-5">
+                <input type="text" class="form-control" name="validate-hash"
+                       ng-model="data.validationHash" readonly="true">
+            </div>
+            <div class="col-sm-5">
+                <span class="form-control readonly"><strong>inner</strong>: {{data.innerHash}}</span>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="control-label col-sm-2">
+                cart-content
+                <i class="glyphicon glyphicon-plus-sign" ng-click="addCartItem()"></i>
+                
+           	</label>
+            <div class="col-sm-10">
+                <table class="table table-condensed table-small">
+                    <tr>
+                        <th>id</th>
+                        <th>desc</th>
+                        <th>quantity</th>
+                        <th>price</th>
+                        <th>amount</th>
+                        <th></th>
+                    </tr>
+                    <tr ng-repeat="row in data.cartContent track by $index">
+                        <td>
+                            <input type="text" ng-model="data.cartContent[$index].id">
+                        </td>
+                        <td>
+                            <input type="text" ng-model="data.cartContent[$index].desc">
+                        </td>
+                        <td>
+                            <input type="number" class="text-right" ng-model="data.cartContent[$index].quantity">
+                        </td>
+                        <td>
+                            <input type="number" class="text-right" step="0.01" ng-model="data.cartContent[$index].price">
+                        </td>
+                        <td>
+                            <input type="number" class="text-right" step="0.01" ng-model="data.cartContent[$index].amount">
+                        </td>
+                        <td>
+                            <i class="glyphicon glyphicon-minus-sign" ng-click="delCartItem($index)" ng-show="$index > 0"></i>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+        
+        <input type="hidden" ng-value="cartContentJSON" name="cart-content">
+        
+        <div class="form-group">
+            <div class="col-sm-offset-9 col-sm-3 text-right">
+                <button type="submit" class="btn btn-primary">Pay with 2Pay</button>
+            </div>
+        </div>
+        
+    </form>
+</div>

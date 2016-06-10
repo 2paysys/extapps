@@ -1,0 +1,22 @@
+<html>
+    <head>
+        <title>Merchant 2pay QAS Online</title>
+        <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css" type="text/css">
+        <link rel="stylesheet" href="css/style.css" type="text/css">
+        <script data-main="js/main.js" src="js/ext/require.js"></script>
+    </head>
+    <body ng-controller="main_ctrl">
+        
+        <nav class="navbar navbar-default navbar-fixed-top">
+            <div ng-include="'views/nav.html'"></div>
+        </nav>
+        
+        <div class="container">
+            <div ng-include="'views/setting.html'"></div>
+        </div>
+        
+        <notification-area></notification-area>
+
+        <load-script src="data.jsUrl"></load-script>
+    </body>
+</html>

@@ -1,0 +1,27 @@
+@import "directive/notification.css";
+
+body > .container {
+	padding-top: 60px;
+}
+
+.navbar-nav > li > select {
+	margin-top: 8px;
+}
+
+.form-control.readonly {
+	display: block;
+    background-color: #eeeeee;
+    white-space: nowrap;
+  	overflow: hidden;
+    text-overflow: ellipsis;
+    font-size: 13px;
+}
+
+div.panel {
+	padding-top: 20px;
+    padding-right: 20px;
+}
+
+table.table-small {
+	font-size: 10px;
+}
