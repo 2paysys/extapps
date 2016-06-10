@@ -31,15 +31,7 @@ define(['angularAMD', 'setting', 'notificationAAMD'], function (angularAMD) {
 
         // Initialize the setting that will load the data and bind the save/read method to $scope
         Setting.initialize($scope);
-        
-        // Load the sessionId
-        $scope.loadScript = function () {
-            if ($scope.data.appId) {
-                $scope.data.jsUrl = Setting.getJsUrl();
-            }
-        };
-        $scope.loadScript();
-        
+
         // Watch for changes in variable needed by validation hash
         $scope.$watchGroup(['data.transactionId','data.amount'], function () {
 			Setting.calcValidationHash();

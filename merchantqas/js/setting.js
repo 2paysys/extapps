@@ -209,6 +209,9 @@ define(['angularAMD', 'forge', 'notificationAAMD'], function (angularAMD, forge)
             // Bind read and save methods
             privScope.save = self.save;
             privScope.read = self.read;
+
+            // Set the 
+            privScope.data.jsUrl = self.getJsUrl();
             
             $log.log('Setting initialized');
         };
