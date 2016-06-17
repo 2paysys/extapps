@@ -17,19 +17,10 @@
                     <th>status</th>
                     <td>{{status}}</td>
                 </tr>
+
                 <tr>
                     <th>2pay-order-id</th>
                     <td>{{orderId}}</td>
-                </tr>
-                <tr>
-                    <th>validation-hash (depricated)</th>
-                    <td>
-                        {{validationHash}}
-                        <span ng-show="showValidation">
-                            <span class="label label-success" ng-show="validationHashValid">Valid</span>
-                            <span class="label label-danger" ng-hide="validationHashValid">Invalid</span>
-                        </span>
-                    </td>
                 </tr>
                 <tr>
                     <th>confirm-hash</th>
@@ -38,6 +29,32 @@
                         <span ng-show="showValidation">
                             <span class="label label-success" ng-show="confirmHashValid">Valid</span>
                             <span class="label label-danger" ng-hide="confirmHashValid">Invalid</span>
+                        </span>
+                    </td>
+                </tr>
+
+                <tr>
+                    <th>net-amount</th>
+                    <td>{{netAmount}}</td>
+                </tr>
+                <tr>
+                    <th>net-amount-hash</th>
+                    <td>
+                        {{netAmountHash}}
+                        <span ng-show="showValidation">
+                            <span class="label label-success" ng-show="netAmountHashValid">Valid</span>
+                            <span class="label label-danger" ng-hide="netAmountHashValid">Invalid</span>
+                        </span>
+                    </td>
+                </tr>
+
+                <tr>
+                    <th>validation-hash (depricated)</th>
+                    <td>
+                        {{validationHash}}
+                        <span ng-show="showValidation">
+                            <span class="label label-success" ng-show="validationHashValid">Valid</span>
+                            <span class="label label-danger" ng-hide="validationHashValid">Invalid</span>
                         </span>
                     </td>
                 </tr>

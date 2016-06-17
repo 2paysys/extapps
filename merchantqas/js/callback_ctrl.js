@@ -13,6 +13,8 @@ define(['angularAMD', 'setting'], function (angularAMD) {
         $scope.orderId = data['2pay-order-id'];
         $scope.validationHash = data['validation-hash'];
         $scope.confirmHash = data['confirm-hash'];
+        $scope.netAmount = data['net-amount'];
+        $scope.netAmountHash = data['net-amount-hash'];
 
         if (stored.data) {
             if ($scope.orderId) {
@@ -25,7 +27,8 @@ define(['angularAMD', 'setting'], function (angularAMD) {
                 innerHash = Setting.calcHash($scope.orderId, secretKey),
                 validationHash = Setting.calcHash($scope.transactionId, innerHash, secretKey),
                 innerConfirm = Setting.calcHash($scope.orderId, secretKey, $scope.status),
-                confirmHash = Setting.calcHash($scope.transactionId, innerConfirm, secretKey)
+                confirmHash = Setting.calcHash($scope.transactionId, innerConfirm, secretKey),
+                netAmountHash = Setting.calcHash($scope.transactionId, $scope.netAmount, innerConfirm, secretKey)
             ;
 
             $log.log('innerHash: ' + innerHash);
@@ -38,6 +41,9 @@ define(['angularAMD', 'setting'], function (angularAMD) {
             }
             if ($scope.validationHash) {
                 $scope.validationHashValid = (validationHash.substring(0, $scope.validationHash.length) === $scope.validationHash);
+            }
+            if ($scope.netAmountHash) {
+                $scope.netAmountHashValid = (netAmountHash.substring(0, $scope.netAmountHash.length) === $scope.netAmountHash);
             }
 
             // Get the order_id status
